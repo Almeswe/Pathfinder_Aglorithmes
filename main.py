@@ -3,7 +3,9 @@ import sys
 import pygame
 import threading
 
+from bfs import BFS
 from astar import Astar
+
 from config import WINDOW_SIZE,CELL_SIZE
 
 class Window():
@@ -15,7 +17,7 @@ class Window():
 
     win_map = map.Map(WINDOW_SIZE,CELL_SIZE)
 
-    def __init__(self, win_size, win_title = "astar"):
+    def __init__(self, win_size, win_title = "pathfinders"):
         pygame.init()
         self.win_size = win_size
         self.win_title = win_title
@@ -24,6 +26,7 @@ class Window():
         pygame.display.set_caption(self.win_title)
 
     def wndproc(self):
+        self.render()
         hold_for_draw = False
         hold_for_blur = False
 
@@ -57,12 +60,15 @@ class Window():
                         pass
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-                    if thread == None or not thread.isAlive():
-                        thread = threading.Thread(None,Astar(self).run)
+                    if thread == None or not thread.is_alive():
+                        # Set current algorithm here (Astar,BFS)
+                        thread = threading.Thread(None,Dijkstra(self).run)
+                        #thread = threading.Thread(None,Astar(self).run)
+                        #                               ~~~~~~~~~~~
                         thread.start()
                 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_r:
-                    if thread == None or not thread.isAlive():
+                    if thread == None or not thread.is_alive():
                         self.reset()
 
 
@@ -79,7 +85,7 @@ class Window():
         self.draw_grid()
         self.draw_cells()
 
-        pygame.time.Clock().tick(100)
+        pygame.time.Clock().tick(150)
         pygame.display.update()
 
     def draw_grid(self):
