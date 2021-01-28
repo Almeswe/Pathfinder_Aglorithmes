@@ -1,9 +1,9 @@
 from map import MapCell
-from config import WINDOW_SIZE,CELL_SIZE
+from config import CELL_SIZE,GOAL_COORD,STRT_COORD
 
 class AlgorithmBase():
-    start = (0,0)
-    goal  = (WINDOW_SIZE[0]//CELL_SIZE-1,WINDOW_SIZE[1]//CELL_SIZE-1)
+    start = STRT_COORD
+    goal  = GOAL_COORD
 
     start_cell = MapCell(start[0],start[1],CELL_SIZE)
     goal_cell  = MapCell(goal[0],goal[1],CELL_SIZE)

@@ -61,10 +61,10 @@ class Window():
 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     if thread == None or not thread.is_alive():
-                        # Set current algorithm here (Astar,BFS)
-                        thread = threading.Thread(None,Dijkstra(self).run)
-                        #thread = threading.Thread(None,Astar(self).run)
-                        #                               ~~~~~~~~~~~
+
+                        # Set current algorithm here (Astar,BFS...)
+                        thread = threading.Thread(None,Astar(self).run)
+                        #                              ~~~~~~~~~~~
                         thread.start()
                 
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_r:

@@ -45,7 +45,7 @@ class MapCell():
         return True if self.type == Marker.DFLT else False
 
     def set_visited(self):
-        if self.isStart() or self.isGoal() or self.isBlocked():
+        if self.isStart() or self.isGoal():
             return
         self.type = Marker.VSTD
 
@@ -75,6 +75,9 @@ class MapCell():
 
     def equals(self, cell):
         return True if self.x == cell.x and self.y == cell.y else False
+
+    def to_str(self):
+        return str(self.x) + str(self.y)
 
 
 class Map():
@@ -106,29 +109,29 @@ class Map():
         if self.possible_x_coord(x-1) and self.possible_y_coord(y-1):
             nears.append(self.get_cell(x-1,y-1))
 
-        if self.possible_x_coord(x) and self.possible_y_coord(y-1):
+        if self.possible_y_coord(y-1):
             nears.append(self.get_cell(x,y-1))
         
         if self.possible_x_coord(x+1) and self.possible_y_coord(y-1):
             nears.append(self.get_cell(x+1,y-1))
 
-        if self.possible_x_coord(x+1) and self.possible_y_coord(y):
+        if self.possible_x_coord(x+1):
             nears.append(self.get_cell(x+1,y))
 
         if self.possible_x_coord(x+1) and self.possible_y_coord(y+1):
             nears.append(self.get_cell(x+1,y+1))
 
-        if self.possible_x_coord(x) and self.possible_y_coord(y+1):
+        if self.possible_y_coord(y+1):
             nears.append(self.get_cell(x,y+1))
 
         if self.possible_x_coord(x-1) and self.possible_y_coord(y+1):
             nears.append(self.get_cell(x-1,y+1))
 
-        if self.possible_x_coord(x-1) and self.possible_y_coord(y):
+        if self.possible_x_coord(x-1):
             nears.append(self.get_cell(x-1,y))
 
-        for c in nears:
-            c.set_front()
+        #for c in nears:
+        #    c.set_front()
         return nears
 
     def get_cell(self,x,y):
