@@ -51,6 +51,6 @@
 - L_MOUSE_CLICK - draw obstacle
 - R - reset
 - SPACE - run algorithm
-#^
+
   
  Okay thats all, enjoy! 
