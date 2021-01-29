@@ -1,4 +1,5 @@
 from map import MapCell
+from math import sqrt
 from config import CELL_SIZE,GOAL_COORD,STRT_COORD
 
 class AlgorithmBase():
@@ -12,11 +13,12 @@ class AlgorithmBase():
         self.window = pygame_window
         self.draw_goal_and_start()
 
+
     def run(self):
         raise Exception('Base \'run\' method is not implemented.')
 
     def draw_spath(self, current, came_from):
-        while not self.start_cell.equals(came_from[current]):
+        while not self.start_cell.equals(current):
             current.set_path()
             current = came_from[current]
         self.window.render()
@@ -25,6 +27,9 @@ class AlgorithmBase():
         self.window.win_map.get_cell(self.start[0],self.start[1]).set_start() 
         self.window.win_map.get_cell(self.goal[0],self.goal[1]).set_goal()
         self.render()
+    
+    def heuristic(self, from_cell, to_cell):
+        return sqrt((from_cell.x - to_cell.x) ** 2 + (from_cell.y - to_cell.y) ** 2)
 
     def render(self):
         self.window.render()

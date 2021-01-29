@@ -5,6 +5,7 @@ import threading
 
 from bfs import BFS
 from astar import Astar
+from dijkstra import Dijkstra
 
 from config import WINDOW_SIZE,CELL_SIZE
 
@@ -85,7 +86,8 @@ class Window():
         self.draw_grid()
         self.draw_cells()
 
-        pygame.time.Clock().tick(150)
+        #without it alg works faster
+        #pygame.time.Clock().tick(150)
         pygame.display.update()
 
     def draw_grid(self):

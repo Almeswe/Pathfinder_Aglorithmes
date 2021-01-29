@@ -1,4 +1,4 @@
-from math import sqrt,pow
+from math import sqrt
 from queue import PriorityQueue
 
 from base import AlgorithmBase
@@ -28,17 +28,17 @@ class Astar(AlgorithmBase):
             for next in self.window.win_map.get_nears(current):
                 if next.isBlocked():
                     continue
-                new_cost = cost_so_far[current] #+ cost?
+                next.set_front()
+                new_cost = cost_so_far[current] + self.heuristic(next,current)
+
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
                     priority = new_cost + self.heuristic(self.goal_cell,next)
-                    frontier.put(priority)
                     priority_of_frontier[priority] = next
+                    frontier.put(priority)
                     came_from[next] = current
-            self.render() 
 
-    def heuristic(self, from_cell, to_cell):
-        return sqrt(pow(from_cell.x - to_cell.x,2)+pow(from_cell.y - to_cell.y,2))
+            self.render() 
 
 if __name__ == "__main__":
     raise Exception("Bad entry point file, try main.py ...")
