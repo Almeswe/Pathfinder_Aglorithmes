@@ -28,9 +28,12 @@ class Astar(AlgorithmBase):
             for next in self.window.win_map.get_nears(current):
                 if next.isBlocked():
                     continue
-                next.set_front()
-                new_cost = cost_so_far[current] + self.heuristic(next,current)
 
+                next.set_visited()
+                for near_of_near in self.window.win_map.get_nears(next):
+                    near_of_near.set_front()
+
+                new_cost = cost_so_far[current] + self.heuristic(next,current)
                 if next not in cost_so_far or new_cost < cost_so_far[next]:
                     cost_so_far[next] = new_cost
                     priority = new_cost + self.heuristic(self.goal_cell,next)
