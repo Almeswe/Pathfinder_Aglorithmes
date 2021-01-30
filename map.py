@@ -14,7 +14,6 @@ class MapCell():
     x = None
     y = None
     size = None
-
     type  = Marker.DFLT
 
     def __init__(self, x, y, size):
@@ -76,9 +75,6 @@ class MapCell():
     def equals(self, cell):
         return True if self.x == cell.x and self.y == cell.y else False
 
-    def to_str(self):
-        return str(self.x) + str(self.y)
-
 
 class Map():
     cells = []
@@ -129,9 +125,7 @@ class Map():
 
         if self.possible_x_coord(x-1):
             nears.append(self.get_cell(x-1,y))
-
-        #for c in nears:
-        #    c.set_front()
+        
         return nears
 
     def get_cell(self,x,y):

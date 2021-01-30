@@ -5,7 +5,7 @@ import threading
 
 from bfs import BFS
 from astar import Astar
-from dijkstra import Dijkstra
+from greedy import Greedy 
 
 from config import WINDOW_SIZE,CELL_SIZE
 
@@ -63,7 +63,7 @@ class Window():
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                     if thread == None or not thread.is_alive():
 
-                        # Set current algorithm here (Astar,BFS...)
+                        # Set current algorithm here (Astar,BFS,Greedy...)
                         thread = threading.Thread(None,Astar(self).run)
                         #                              ~~~~~~~~~~~
                         thread.start()
@@ -86,8 +86,10 @@ class Window():
         self.draw_grid()
         self.draw_cells()
 
-        #without it alg works faster
-        #pygame.time.Clock().tick(150)
+        pygame.display.update()
+
+    def render_cell(self,i):
+        pygame.draw.rect(self.win_instance,i.type.value,pygame.Rect(i.x*CELL_SIZE,i.y*CELL_SIZE,i.size,i.size))
         pygame.display.update()
 
     def draw_grid(self):

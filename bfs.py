@@ -1,4 +1,3 @@
-from map import MapCell
 from queue import Queue
 
 from base import AlgorithmBase
@@ -22,7 +21,11 @@ class BFS(AlgorithmBase):
             for next in self.window.win_map.get_nears(current):
                 if next.isBlocked():
                     continue
-                next.set_front()
+
+                next.set_visited()
+                for near_of_near in self.window.win_map.get_nears(next):
+                    near_of_near.set_front()
+                    
                 if next not in came_from:
                     frontier.put(next)
                     came_from[next] = current 
